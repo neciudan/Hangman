@@ -1,0 +1,142 @@
+<html>
+<head>
+<title>Hang Man!</title>
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+</head>
+<body>
+<div id="body">
+</div><div id="word" class="classname"><p></p></div><div id="message"></div><div id="riddle"></div>
+<div id="keyboard"><div id="letterQ" class="classname">Q</div><div id="letterW" class="classname">W</div><div id="letterE" class="classname">E</div><div id="letterR" class="classname" >R</div><div id="letterT" class="classname" >T</div><div id="letterY" class="classname" >Y</div><div id="letterU" class="classname" >U</div><div id="letterI" class="classname">I</div><div id="letterO" class="classname">O</div><div id="letterP" class="classname">P</div></br><div id="letterA" class="classname">A</div><div id="letterS" class="classname">S</div><div id="letterD" class="classname">D</div><div id="letterF" class="classname">F</div><div id="letterG" class="classname">G</div><div id="letterH" class="classname">H</div><div id="letterJ" class="classname">J</div><div id="letterK" class="classname">K</div><div id="letterL" class="classname">L</div></br><div id="letterZ" class="classname">Z</div><div id="letterX" class="classname">X</div><div id="letterC" class="classname">C</div><div id="letterV" class="classname">V</div><div id="letterB" class="classname">B</div><div id="letterN" class="classname">N</div><div id="letterM" class="classname">M</div></div>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>
+$(document).ready(function(){
+var onImageLoad = function(){
+    console.log("IMAGE!!!");
+};
+$("div[id=letter]").css("float","left");
+
+
+
+var words =["nothing","river","watermelon","language","coffin","darkness","frog","halfway","silence","ton","important","smile","sponge","popcorn","footsteps","wheat","horse","phone","vex","seven","dozens","mother","pains"];
+var riddle = ["It is greater than God and more evil than the devil. The poor have it, the rich need it and if you eat it you'll die. What is it?","What always runs but never walks, often murmurs, never talks, has a bed but never sleeps, has a mouth but never eats?","There was a green house. Inside the green house there was a white house. Inside the white house there was a red house. Inside the red house there were lots of babies. What is it?","Think of words ending in -GRY. Angry and hungry are two of them. There are only three words in the English language. What is the third word? The word is something that everyone uses every day. If you have listened carefully, I have already told you what it is.","The person who makes it, sells it. The person who buys it never uses it and the person who uses it doesn't know they are. What is it?","The more you have of it, the less you see. What is it?","I have four legs but no tail. Usually I am heard only at night. What am I?","How far will a blind dog walk into a forest?","Say my name and I disappear. What am I?","Forward I'm heavy, but backwards I'm not. What am I?","There once was a strange man who loved wordplay, he had a very important and successful business that would take insect shipments from all across the world and distribute them to zoos across the US.What was the name of his company?","A mile from end to end, yet as close to as a friend. A precious commodity, freely given. Seen on the dead and on the living. Found on the rich, poor, short and tall, but shared among children most of all. What is it?","I'm full of holes, yet I'm full of water. What am I?","What makes a loud noise when changing its jacket, becomes larger but weighs less?","The more you take, the more you leave behind.","I am a word of 5 letters and people eat me. If you remove the first letter I become a form of energy. Remove the first two and I'm needed to live. Scramble the last 3 and you can drink me. What am I?","A cowboy rides into town on Friday, stays for three days and leaves on Friday. How did he do it?","What asks no questions but receives lots of answers?","What three letter English word has an odd start, an even finish and an infinitely long middle?","I live above a star but never burn. I have 11 neighbors but they never turn. My initials are p, q, r and sometimes s. What am I?","A word I know, six letters it contains, subtract just one and twelve remains.","I'm a six letter word. If I did not exist, you wouldn't either. With my first letter ommited I'm an alternative. The last three letters are feminine. The first four letters make an insect. Who am I?","I am something many people don't enjoy having as a friend, including you. But I am called upon anytime someone is injured. I have 5 letters and when my last letter is put before my first letter, I become a country. What am I?",];
+var explanation = ["Nothing. Nothing is greater than God, nothing is more evil than the devil, the poor have nothing, the rich need nothing and if you eat nothing you'll die","A River","A WaterMelon","It states, \"There are only three words in the English language. What is the third word?\" The third word of that phrase is of course \"language.\" Don't get angry at me, I didn't make it up :)","A Coffin","Darkness","A frog. The frog is an amphibian in the order Anura (meaning \"tail-less\") and usually makes noises at night during its mating season","Halfway. After he gets halfway, he's walking out of the forest.","Silence","Ton is Not backwards","ImportANT","A smile","A sponge","Popcorn","Footsteps","wheat heat eat tea","The horse's name is Friday","A phone","The word vex. \"v\" is Roman numeral 5, which is odd. \"x\" is Roman numeral 10, which is even. \"e\" is the base of the natural logarithm and is irrational (e = 2.718281828...). Its mantissa (the part to the right of the decimal point) is infinitely long.","Number 7 on a phone keypad","Dozens, dozen","other=alternative, her=feminine, moth=insect","Pains. No one enjoys being in pain, when you're injured you have pain, and when you move the s to the front, it becomes Spain."];
+//add a more complete word dictionary ;
+//add two more dictionaries for different levels;
+var randomnumber=Math.floor(Math.random()*words.length)
+    
+function setCharAt(str,index,chr) {
+    if(index > str.length-1) return str;
+    return str.substr(0,index) + chr + str.substr(index+1);
+}
+var slctWord=words[randomnumber];
+var slctRiddle=riddle[randomnumber];
+var slctexp=explanation[randomnumber];
+slctWord=slctWord.toUpperCase();
+var x="";
+var cssObj = {      
+      'font-weight' : '',
+      'color' : 'green'
+    };
+var cssObj2 = {
+      
+      'font-weight' : '',
+      'color' : 'red'
+    };
+for(var i=0;i<slctWord.length;i++){
+	x=x+" _";};
+var try2;
+var nrTries=5;
+var GameWon=false;
+$("#riddle").append(slctRiddle);
+$("#word >p").append(x); //Change font-size and stile for #word and #message 
+canvas = document.createElement('canvas');
+ctx2 = canvas.getContext('2d');
+canvas.width = 548;
+canvas.height = 406;
+body.appendChild(canvas);
+$('canvas').addClass("image");
+var img=new Image();
+img.src = 'hangman0.jpg';
+img.onload = function(){
+    ctx2.drawImage(img,0,0);
+	};
+	
+$(".classname").click(function(){ 
+    try2=$(this).text();
+    var found=false;
+    for(var j=0;j<x.length;j++){
+        if(try2==slctWord[j]){
+        x = setCharAt(x,2*j+1,try2); 
+        found=true;}
+		}
+    if(found==true){
+     $(this).css(cssObj);
+    }
+    if(found==false){
+     $(this).css(cssObj2);
+     nrTries=nrTries-1;
+    } 
+    if(nrTries==-1){
+     $("#keyboard").fadeOut("fast");
+    // $("#word").fadeOut("fast");
+     $("#word").text("You LoSE"); //insert </br>
+	 $("#riddle").text(slctexp);
+    }
+    setup();               
+    $("#word >p ").text(x);
+
+/*
+$("#keyboard").fadeOut("slow");
+$("#word").fadeOut("slow");
+$("#message").text("YOU WON!"); Rezolve the You won issue!
+}
+*/
+	});
+var setup = function() {
+    body = document.getElementById('body');
+    canvas = document.createElement('canvas');
+    ctx = canvas.getContext('2d');
+    
+	
+	
+    canvas.width = 548;
+    canvas.height = 406;
+
+    body.appendChild(canvas);
+	$('canvas').addClass("image");
+	var img=new Image();
+	switch(nrTries){
+	case 5:
+	img.src = 'hangman0.jpg';
+	break;
+	case 4:
+	img.src = 'hangman1.jpg';
+	break;
+	case 3:
+	img.src = 'hangman2.jpg';
+	break;
+	case 2:
+	img.src = 'hangman3.jpg';
+	break;
+	case 1:
+	img.src = 'hangman4.jpg';
+	break;
+	case 0:
+	img.src = 'hangman5.jpg';
+	break;
+	default:
+	img.src = 'hangman6.jpg';
+	
+	}
+    
+	img.onload = function(){
+    ctx.drawImage(img,0,0);
+	};
+	};
+	
+	});
+	</script>
+	
+</body>
+
+</html>
